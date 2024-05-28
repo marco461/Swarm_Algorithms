@@ -1,5 +1,3 @@
-Sure, here's a detailed documentation for the provided code, which you can use for your GitHub repository:
-
 # Optimization Algorithms Comparison
 
 This repository contains a Python script to compare the performance of various optimization algorithms: Particle Swarm Optimization (PSO), Teaching-Learning-Based Optimization (TLBO), Artificial Bee Colony (ABC), and Grey Wolf Optimizer (GWO). The comparison is based on the time taken and the fitness of the best solution found by each algorithm.
