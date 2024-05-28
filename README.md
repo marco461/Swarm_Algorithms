@@ -142,7 +142,8 @@ for result in results:
     print(f"Time (s): {result['Time (s)']}\n")
 ```
 ## Example Output
+![Screenshot 2024-05-28 114438](https://github.com/marco461/Swarm_Algorithms/assets/121636645/4a5b2f88-508e-4066-861e-0375325f7cc4)
 
 ## License
-![Screenshot 2024-05-28 114438](https://github.com/marco461/Swarm_Algorithms/assets/121636645/4a5b2f88-508e-4066-861e-0375325f7cc4)
+
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
