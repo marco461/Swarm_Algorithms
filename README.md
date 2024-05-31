@@ -27,6 +27,12 @@ This repository contains a Python script that implements and compares various sw
    python Swarm_Algorithms.py
    ```
    This will execute the comparison and print the results to the console.
+4. **(optional) Run each script individually**:
+   ```bash
+   # for example if you want to use PSO algorithm,
+   # !! but make sure that you uncomment Example usage part in the scripte
+   python PSO.py
+   ```
 
 ## Algorithms Included
 
