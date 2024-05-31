@@ -1,134 +1,125 @@
-# Optimization Algorithms Comparison
+# Swarm Algorithms Comparison
 
-This repository contains a Python script to compare the performance of various optimization algorithms: Particle Swarm Optimization (PSO), Teaching-Learning-Based Optimization (TLBO), Artificial Bee Colony (ABC), and Grey Wolf Optimizer (GWO). The comparison is based on the time taken and the fitness of the best solution found by each algorithm.
+This repository contains a Python script that implements and compares various swarm intelligence algorithms for optimization. The algorithms included are Particle Swarm Optimization (PSO), Teaching-Learning-Based Optimization (TLBO), Ant Colony Optimization algorithm (ACO), Artificial Bee Colony (ABC) for both minimization and maximization, and Grey Wolf Optimizer (GWO) for both minimization and maximization. The script evaluates these algorithms based on their ability to find the optimal solution and the time taken for the optimization process.
 
-## Prerequisites
+## Repository Contents
 
-Ensure you have the necessary libraries installed:
-- `numpy`
-
-You should also have the respective optimization algorithm implementations available: `PSO`, `TLBO`, `ABC`, `GWO`.
-
-## Code Description
-
-### Define Parameters
-
-First, we define the necessary parameters for the optimization algorithms:
-
-```python
-lb = -100  # Lower bound of the search space
-ub = 100   # Upper bound of the search space
-num_particles = 5  # Number of particles (or agents)
-num_dimensions = 4  # Number of dimensions
-iterations = 2  # Number of iterations
-w = 0.5  # Inertia weight for PSO
-c1 = 1.5  # Cognitive coefficient for PSO
-c2 = 1.5  # Social coefficient for PSO
-```
-
-### Generate Initial Population
-
-We generate an initial population matrix with random values within the specified bounds:
-
-```python
-population = np.random.uniform(lb, ub, (num_particles, num_dimensions))
-```
-
-### Define Fitness Function
-
-A simple fitness function is defined which calculates the sum of the elements of a solution:
-
-```python
-def fitness_function(x):
-    return np.sum(x)
-```
-
-### Run and Time Each Algorithm
-
-A helper function is created to run and time each algorithm:
-
-```python
-def run_algorithm(algorithm_func, algo_name, *args):
-    start_time = time.time()
-    best_solution, best_fitness = algorithm_func(*args)
-    end_time = time.time()
-    elapsed_time = end_time - start_time
-    return {
-        "Algorithm": algo_name,
-        "Best Solution": best_solution,
-        "Best Fitness": best_fitness,
-        "Time (s)": elapsed_time
-    }
-```
-
-### Execute and Compare Algorithms
-
-We instantiate and run each algorithm, then store the results:
-
-```python
-results = []
-
-# Instantiate ABC algorithms
-abc_min = ABC_Min(fitness_function, population, iterations, lb, ub)
-abc_max = ABC_Max(fitness_function, population, iterations, lb, ub)
-
-# Run algorithms and collect results
-results.append(run_algorithm(PSO, "PSO", fitness_function, population, iterations, lb, ub, w, c1, c2))
-results.append(run_algorithm(TLBO, "TLBO", fitness_function, population, iterations, lb, ub))
-results.append(run_algorithm(abc_min.run, "ABC_Min"))
-results.append(run_algorithm(abc_max.run, "ABC_Max"))
-results.append(run_algorithm(GWO_Min, "GWO_Min", population, fitness_function, iterations, lb, ub))
-results.append(run_algorithm(GWO_Max, "GWO_Max", population, fitness_function, iterations, lb, ub))
-```
-
-### Display Results
-
-We print the results for each algorithm:
-
-```python
-for result in results:
-    print(f"Algorithm: {result['Algorithm']}")
-    print(f"Best Solution: {result['Best Solution']}")
-    print(f"Best Fitness: {result['Best Fitness']}")
-    print(f"Time (s): {result['Time (s)']}\n")
-```
-
-### Identify Best Performers
-
-We find and display the algorithm with the minimum time and the minimum fitness value:
-
-```python
-# Find the minimum time and the corresponding algorithm
-min_time_result = min(results, key=lambda x: x['Time (s)'])
-print(f"Minimum Time: {min_time_result['Time (s)']}s, Algorithm: {min_time_result['Algorithm']}")
-
-# Find the minimum fitness and the corresponding algorithm
-min_fitness_result = min(results, key=lambda x: x['Best Fitness'])
-print(f"Minimum Fitness: {min_fitness_result['Best Fitness']}, Algorithm: {min_fitness_result['Algorithm']}")
-```
+- **`PSO.py`**: Contains the implementation of the Particle Swarm Optimization algorithm.
+- **`TLBO.py`**: Contains the implementation of the Teaching-Learning-Based Optimization algorithm.
+- **`ACO.py`**: Contains the implementation of the Ant Colony Optimization algorithm.
+- **`ABC.py`**: Contains the implementation of the Artificial Bee Colony algorithm, including both minimization and maximization variants.
+- **`GWO.py`**: Contains the implementation of the Grey Wolf Optimizer algorithm, including both minimization and maximization variants.
+- **`Swarm_Algorithms.py`**: The main script that runs and times each algorithm, compares their performance, and prints the results.
 
 ## Usage
 
-To run this script, make sure you have the necessary algorithm implementations (`PSO`, `TLBO`, `ABC`, `GWO`) correctly imported and available in your working directory. Simply run the script using Python:
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/yourusername/swarm-algorithms-comparison.git
+   cd swarm-algorithms-comparison
+   ```
 
-```bash
-python optimization_comparison.py
+2. **Install required dependencies**:
+   Ensure you have the necessary Python libraries installed. You can use `pip` to install any missing libraries.
+
+3. **Run the main script**:
+   ```bash
+   python Swarm_Algorithms.py
+   ```
+   This will execute the comparison and print the results to the console.
+
+## Algorithms Included
+
+1. **Particle Swarm Optimization (PSO)**
+2. **Teaching-Learning-Based Optimization (TLBO)**
+3. **Artificial Bee Colony (ABC)**
+   - Minimization (`ABC_Min`)
+   - Maximization (`ABC_Max`)
+4. **Grey Wolf Optimizer (GWO)**
+   - Minimization (`GWO_Min`)
+   - Maximization (`GWO_Max`)
+
+## Parameters
+
+- **Lower Bound (`lb`)**: -10
+- **Upper Bound (`ub`)**: 10
+- **Number of Particles**: 5
+- **Number of Dimensions**: 4
+- **Iterations**: 50
+- **PSO Parameters**: `w` (inertia weight), `c1` (cognitive coefficient), `c2` (social coefficient)
+
+## Fitness Function
+
+The fitness function used in the script is the sum of squares of the input vector:
+
+```python
+def fitness_function(x):
+    return np.sum(np.square(x))
 ```
 
 ## Results
 
-The results will include the best solution found, the best fitness value, and the time taken for each algorithm. The script will also identify which algorithm had the minimum execution time and the best (minimum) fitness value.
+The script runs each algorithm with the same initial population and prints the best solution, best fitness, and execution time for each algorithm. It also identifies the best-performing algorithms in terms of time and fitness.
 
-## Contribution
+## Example Output
 
-Feel free to contribute to this repository by adding more algorithms, improving existing implementations, or optimizing the code. Fork the repository and submit a pull request with your changes.
+```plaintext
+============= Minimum-Based Algorithms =============
+Algorithm: PSO
+Best Solution: [ 0.00038826  0.00013539 -0.0003896  -0.0003565 ]
+Best Fitness: 4.479469777117293e-07
+Time (s): 0.0049936771392822266
+
+Algorithm: TLBO
+Best Solution: [ 2.21576034e-09 -3.26967128e-09 -1.10184297e-08 -1.20762278e-08]
+Best Fitness: 2.828414153322774e-16
+Time (s): 0.008859395980834961
+
+Algorithm: ABC_Min
+Best Solution: [-5.6192385  -2.16361609 -1.90861489 -5.16317425]
+Best Fitness: 0.014802040076999156
+Time (s): 0.004006624221801758
+
+Algorithm: GWO_Min
+Best Solution: [-1.09888329 -4.94674773 -3.53200937  4.76503822]
+Best Fitness: 60.85853706337849
+Time (s): 0.009610652923583984
+
+============= Maximum-Based Algorithms =============
+Algorithm: ABC_Max
+Best Solution: [ -2.62159106 -10.           6.91890891  -4.27649209]
+Best Fitness: 0.004732535384112649
+Time (s): 0.0045833587646484375
+
+Algorithm: GWO_Max
+Best Solution: [-10. -10. -10. -10.]
+Best Fitness: 400.0
+Time (s): 0.010488748550415039
+
+---------------------------------------------------------------------------------
+Best Minimum-Based Algorithm (Time): ABC_Min, Time: 0.004006624221801758s
+Best Minimum-Based Algorithm (Fitness): TLBO, Fitness: 2.828414153322774e-16
+---------------------------------------------------------------------------------
+Best Maximum-Based Algorithm (Time): ABC_Max, Time: 0.0045833587646484375s
+Best Maximum-Based Algorithm (Fitness): ABC_Max, Fitness: 0.004732535384112649
+---------------------------------------------------------------------------------
+Overall Minimum Time: 0.004006624221801758s, Algorithm: ABC_Min
+Overall Minimum Fitness: 2.828414153322774e-16, Algorithm: TLBO
+---------------------------------------------------------------------------------
+```
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Contributing
+
+Contributions are welcome! Please create a pull request or open an issue to discuss your changes or suggestions.
 
 ## Acknowledgements
 
-Thank you to the authors of the PSO, TLBO, ABC, and GWO implementations used in this comparison.
+This project was developed to provide a comparative study of different swarm intelligence algorithms and their performance on a given optimization problem.
 
 ---
+
+Feel free to reach out if you have any questions or need further assistance. Happy coding!
